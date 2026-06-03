@@ -40,6 +40,7 @@
 
 <!-- ══ PRELOAD CRITICAL ASSETS ════════════════════════════════ -->
 <link rel="preload" as="image" href="Logoorsplet-2.png" fetchpriority="high"/>
+<link rel="preload" as="image" href="imagenesweb/HeroBackground.jpg" fetchpriority="high"/>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"/>
 
 <!-- ══ FONTS ══════════════════════════════════════════════════ -->
@@ -355,7 +356,7 @@ section { padding:clamp(4rem,8vw,7rem) 0; }
 .hb,.ht,.hs,.hc,.htr { opacity:0; transform:translateY(18px); }
 
 .h-title {
-  font-size:clamp(2.5rem,9.5vw,7.5rem);
+  font-size:clamp(2.5rem,6vw,5rem);
   font-weight:800; letter-spacing:-.05em; line-height:1.05;
   margin-bottom:clamp(.875rem,2.5vw,1.5rem);
   color:var(--tw1);
@@ -731,7 +732,7 @@ footer { padding:clamp(2rem,4vw,3rem) 0; background:var(--black); border-top:1px
 ══════════════════════════════════════════════════ */
 
 /* — Glow base ───────────────────────────────────── */
-.glow { position:absolute; border-radius:50%; pointer-events:none; z-index:0; }
+.glow { position:absolute; border-radius:50%; pointer-events:none; z-index:0; will-change:transform; }
 
 @keyframes gf1 {
   0%,100% { transform:translate(0,0) scale(1) }
@@ -1893,9 +1894,6 @@ footer { padding:clamp(2rem,4vw,3rem) 0; background:var(--black); border-top:1px
   </div>
 </footer>
 
-<!-- ══ MOTION CDN ════════════════════════════════════════════ -->
-<script src="https://cdn.jsdelivr.net/npm/motion@11/dist/motion.js" defer></script>
-
 <script>
 /* ── NAV SCROLL ─────────────────────────── */
 const nav = document.getElementById('nav');
@@ -1923,22 +1921,14 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && open) clos
 
 /* ── HERO ENTRANCE ──────────────────────── */
 window.addEventListener('load', () => {
-  const seq = [
-    ['.hb', .15], ['.ht', .3], ['.hs', .5], ['.hc', .66], ['.htr', .82]
-  ];
-  const Motion_animate = (typeof Motion !== 'undefined') ? Motion.animate : null;
-  seq.forEach(([sel, delay]) => {
-    if (Motion_animate) {
-      Motion_animate(sel, {opacity:[0,1], y:[18,0]}, {duration:.7, delay, easing:[.25,.1,.25,1]});
-    } else {
-      const el = document.querySelector(sel);
-      if (!el) return;
-      setTimeout(() => {
-        el.style.transition = 'opacity .7s ease, transform .7s ease';
-        el.style.opacity = '1';
-        el.style.transform = 'translateY(0)';
-      }, delay * 1000);
-    }
+  [['.hb',.15],['.ht',.3],['.hs',.5],['.hc',.66],['.htr',.82]].forEach(([sel,delay]) => {
+    const el = document.querySelector(sel);
+    if (!el) return;
+    setTimeout(() => {
+      el.style.transition = 'opacity .7s cubic-bezier(.25,.1,.25,1), transform .7s cubic-bezier(.25,.1,.25,1)';
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+    }, delay * 1000);
   });
 });
 
@@ -1963,19 +1953,6 @@ const cio = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { countUp(e.target); cio.unobserve(e.target); } });
 }, {threshold:.6});
 document.querySelectorAll('.cnt').forEach(el => cio.observe(el));
-
-/* ── SERVICE ICON HOVER (desktop only) ──── */
-window.addEventListener('load', () => {
-  if (typeof Motion !== 'undefined' && window.matchMedia('(hover:hover)').matches) {
-    const {animate} = Motion;
-    document.querySelectorAll('.svc').forEach(card => {
-      const ico = card.querySelector('.svc-ico');
-      if (!ico) return;
-      card.addEventListener('mouseenter', () => animate(ico, {scale:[1,1.08]}, {duration:.2, easing:[.34,1.56,.64,1]}));
-      card.addEventListener('mouseleave', () => animate(ico, {scale:[1.08,1]}, {duration:.2, easing:[.25,.1,.25,1]}));
-    });
-  }
-});
 
 /* ── SMOOTH ANCHOR SCROLL ───────────────── */
 document.querySelectorAll('a[href^="#"]').forEach(a => {
