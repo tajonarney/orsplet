@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="es-MX">
+<html lang="es-MX" class="no-js">
 <head>
+<script>document.documentElement.classList.replace('no-js','js')</script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
@@ -80,7 +81,10 @@
         "@type": "Country",
         "name": "México"
       },
-      "sameAs": []
+      "sameAs": [
+        "https://www.linkedin.com/company/orsplet",
+        "https://www.instagram.com/orsplet"
+      ]
     },
     {
       "@type": "WebSite",
@@ -108,37 +112,177 @@
       "areaServed": "México",
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
-        "name": "Servicios de Diseño y Desarrollo Web",
+        "name": "Servicios de Diseño y Desarrollo Web — Orsplet México",
         "itemListElement": [
           {
             "@type": "Offer",
             "position": 1,
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": "6900",
+              "priceCurrency": "MXN",
+              "description": "Plan Básico — pago único"
+            },
             "itemOffered": {
               "@type": "Service",
               "name": "Diseño Web Premium",
-              "description": "Interfaces estratégicamente diseñadas para comunicar el valor de tu negocio. UI Design, UX Strategy, prototipado y Design System."
+              "serviceType": "Web Design",
+              "description": "Interfaces estratégicamente diseñadas para comunicar el valor de tu negocio. UI Design, UX Strategy, prototipado y Design System. Entrega en 2 semanas.",
+              "provider": { "@id": "https://orsplet.com/#organization" },
+              "areaServed": "México",
+              "url": "https://orsplet.com/#servicios"
             }
           },
           {
             "@type": "Offer",
             "position": 2,
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": "11900",
+              "priceCurrency": "MXN",
+              "description": "Plan Profesional — pago único"
+            },
             "itemOffered": {
               "@type": "Service",
-              "name": "Optimización Web y SEO",
-              "description": "Velocidad, SEO técnico y conversión. Sitios rápidos, bien ranqueados y que convierten más. Performance y Core Web Vitals."
+              "name": "GEO: Optimización para IA",
+              "serviceType": "Search Engine Optimization",
+              "description": "Optimización de sitios web para aparecer en las respuestas de ChatGPT, Google Gemini y Perplexity. Incluye estructura semántica, schema markup y contenido citable por IA.",
+              "provider": { "@id": "https://orsplet.com/#organization" },
+              "areaServed": "México",
+              "url": "https://orsplet.com/#geo"
             }
           },
           {
             "@type": "Offer",
             "position": 3,
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": "17900",
+              "priceCurrency": "MXN",
+              "description": "Plan Premium — pago único"
+            },
             "itemOffered": {
               "@type": "Service",
-              "name": "Experiencias Web Premium",
-              "description": "Motion design y microinteracciones que elevan la percepción de tu marca y crean experiencias digitales memorables."
+              "name": "Experiencias Web Premium y Automatizaciones",
+              "serviceType": "Web Development",
+              "description": "Motion design, microinteracciones, automatizaciones de contacto, integración WhatsApp Business y panel de métricas mensual para negocios que requieren el máximo impacto digital.",
+              "provider": { "@id": "https://orsplet.com/#organization" },
+              "areaServed": "México",
+              "url": "https://orsplet.com/#servicios"
             }
           }
         ]
       }
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Cuánto cuesta un sitio web profesional en México?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Orsplet ofrece tres planes de sitio web para negocios en México: Plan Básico desde $6,900 MXN (landing page de 1 página, entrega en 2 semanas), Plan Profesional desde $11,900 MXN (hasta 5 páginas, GEO avanzado, entrega en 3 semanas) y Plan Premium desde $17,900 MXN (páginas ilimitadas, automatizaciones, NFC, entrega en 3 semanas). Todos son pago único, sin contratos mensuales."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué es GEO y cómo ayuda a mi negocio?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "GEO (Generative Engine Optimization) es la optimización de un sitio web para aparecer en las respuestas de motores de IA como ChatGPT, Google Gemini y Perplexity. A diferencia del SEO tradicional que busca posiciones en Google, el GEO hace que la IA cite y recomiende directamente tu negocio cuando alguien hace una pregunta relacionada con tus servicios."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto tiempo tarda Orsplet en entregar un sitio web?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Orsplet entrega sitios web en un plazo máximo de 3 semanas. El proceso tiene 4 etapas: Descubrimiento (días 1–2), Diseño (días 3–6), Desarrollo (días 7–14) y Lanzamiento (días 15–21). El plazo está garantizado contractualmente desde el inicio del proyecto."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué agencias de diseño web en México ofrecen GEO?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Orsplet es una agencia de diseño y desarrollo web en México que incluye GEO (Generative Engine Optimization) en sus proyectos, optimizando sitios para ser citados por ChatGPT, Google Gemini y Perplexity. Es una de las pocas agencias en México que integra optimización para IA como parte estándar de su proceso de desarrollo, disponible desde el Plan Básico."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Orsplet ofrece soporte después de lanzar el sitio web?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. El Plan Profesional incluye 30 días de soporte post-lanzamiento y el Plan Premium incluye 60 días. Durante ese período, Orsplet resuelve ajustes, errores y cambios de contenido sin costo adicional."
+      }
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Cómo trabaja Orsplet: proceso de diseño y desarrollo web en 3 semanas",
+  "description": "Proceso de 4 etapas de Orsplet para crear sitios web premium para negocios en México, con entrega garantizada en 21 días.",
+  "totalTime": "P21D",
+  "estimatedCost": {
+    "@type": "MonetaryAmount",
+    "currency": "MXN",
+    "value": "6900"
+  },
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Descubrimiento",
+      "text": "Llamada inicial de 30 min, brief detallado de tu negocio y análisis de tu competencia digital. Definimos objetivos medibles antes de escribir una sola línea de código.",
+      "itemListElement": [
+        { "@type": "HowToDirection", "text": "Brief firmado" },
+        { "@type": "HowToDirection", "text": "Mapa de objetivos" },
+        { "@type": "HowToDirection", "text": "Análisis de competencia" }
+      ]
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Diseño",
+      "text": "Propuesta visual completa: paleta de color, tipografía, layout y wireframes de todas las secciones. Revisión ilimitada hasta aprobación.",
+      "itemListElement": [
+        { "@type": "HowToDirection", "text": "Propuesta visual" },
+        { "@type": "HowToDirection", "text": "Wireframes completos" },
+        { "@type": "HowToDirection", "text": "Revisión ilimitada" }
+      ]
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Desarrollo",
+      "text": "Construcción con código limpio, rápido y escalable. Integración GEO para visibilidad en IA, optimización técnica de velocidad y accesibilidad. Seguimiento en tiempo real en enlace de staging.",
+      "itemListElement": [
+        { "@type": "HowToDirection", "text": "Sitio en staging" },
+        { "@type": "HowToDirection", "text": "GEO integrado" },
+        { "@type": "HowToDirection", "text": "Score mayor a 90 en PageSpeed" }
+      ]
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Lanzamiento",
+      "text": "Publicación en el dominio del cliente, capacitación básica de uso y 30 días de soporte incluidos. Las garantías de entrega y resultados entran en vigor desde este momento.",
+      "itemListElement": [
+        { "@type": "HowToDirection", "text": "Sitio en vivo" },
+        { "@type": "HowToDirection", "text": "30 días de soporte" },
+        { "@type": "HowToDirection", "text": "Garantías activas" }
+      ]
     }
   ]
 }
@@ -353,7 +497,7 @@ section { padding:clamp(4rem,8vw,7rem) 0; }
 .h-body { position:relative; z-index:2; padding:clamp(2.5rem,5vw,4.5rem) 0 clamp(2rem,4vw,4rem); }
 .h-inner { max-width:640px; }
 
-.hb,.ht,.hs,.hc,.htr { opacity:0; transform:translateY(18px); }
+.js .hb,.js .ht,.js .hs,.js .hc,.js .htr { opacity:0; transform:translateY(18px); }
 
 .h-title {
   font-size:clamp(2.5rem,6vw,5rem);
@@ -1217,6 +1361,18 @@ footer { padding:clamp(2rem,4vw,3rem) 0; background:var(--black); border-top:1px
 .mp-bo   { height:22px; width:64px; background:transparent; border:1px solid rgba(255,255,255,.1); border-radius:5px; }
 .mp-cm   { display:flex; gap:5px; }
 .mp-cs   { flex:1; height:46px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.05); border-radius:5px; }
+
+/* — FAQ Section ─────────────────────────────── */
+#faq { background:var(--white); }
+.faq-item {
+  padding:clamp(1.25rem,2.5vw,1.75rem);
+  border:1px solid var(--bl); border-radius:var(--rl);
+  background:var(--white);
+  transition:border-color .3s, box-shadow .3s;
+}
+.faq-item:hover { border-color:rgba(47,93,80,.4); box-shadow:0 6px 20px rgba(0,0,0,.06); }
+.faq-q { font-size:clamp(.9rem,1.5vw,1rem); font-weight:700; letter-spacing:-.02em; color:var(--t1); margin-bottom:.625rem; }
+.faq-a { font-size:.875rem; color:var(--t2); line-height:1.7; }
 </style>
 </head>
 <body>
@@ -1496,55 +1652,59 @@ footer { padding:clamp(2rem,4vw,3rem) 0; background:var(--black); border-top:1px
       <p class="st2 dk rv">Millones de personas ya buscan en ChatGPT, Gemini y Perplexity en lugar de Google. Si tu negocio no aparece en esas respuestas, eres invisible para ellos.</p>
     </div>
 
-    <div class="geo-compare rv">
+    <div class="geo-compare rv" role="table" aria-label="Comparación entre SEO tradicional y GEO">
 
-      <div class="geo-compare-head">
-        <span class="geo-ch-left">SEO Tradicional</span>
-        <span class="geo-ch-right">GEO <span class="geo-new-badge">Nuevo</span></span>
+      <div class="geo-compare-head" role="row">
+        <span role="columnheader" class="geo-ch-left">SEO Tradicional</span>
+        <span role="columnheader" class="geo-ch-right">GEO <span class="geo-new-badge">Nuevo</span></span>
       </div>
 
-      <div class="geo-compare-row">
-        <div class="geo-cr-left-wrap">
+      <div role="rowgroup">
+
+      <div class="geo-compare-row" role="row">
+        <div class="geo-cr-left-wrap" role="cell">
           <span class="geo-cr-cat">Objetivo</span>
           <span class="geo-cr-seo">Posición en Google</span>
         </div>
-        <div class="geo-cr-right-wrap">
+        <div class="geo-cr-right-wrap" role="cell">
           <span class="geo-cr-geo">Respuestas de IA</span>
           <span class="geo-cr-chk" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </div>
       </div>
 
-      <div class="geo-compare-row">
-        <div class="geo-cr-left-wrap">
+      <div class="geo-compare-row" role="row">
+        <div class="geo-cr-left-wrap" role="cell">
           <span class="geo-cr-cat">Método</span>
           <span class="geo-cr-seo">Keywords y backlinks</span>
         </div>
-        <div class="geo-cr-right-wrap">
+        <div class="geo-cr-right-wrap" role="cell">
           <span class="geo-cr-geo">Contenido citable por IA</span>
           <span class="geo-cr-chk" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </div>
       </div>
 
-      <div class="geo-compare-row">
-        <div class="geo-cr-left-wrap">
+      <div class="geo-compare-row" role="row">
+        <div class="geo-cr-left-wrap" role="cell">
           <span class="geo-cr-cat">Resultado</span>
           <span class="geo-cr-seo">Clics al sitio</span>
         </div>
-        <div class="geo-cr-right-wrap">
+        <div class="geo-cr-right-wrap" role="cell">
           <span class="geo-cr-geo">Menciones directas en IA</span>
           <span class="geo-cr-chk" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </div>
       </div>
 
-      <div class="geo-compare-row">
-        <div class="geo-cr-left-wrap">
+      <div class="geo-compare-row" role="row">
+        <div class="geo-cr-left-wrap" role="cell">
           <span class="geo-cr-cat">Ventaja</span>
           <span class="geo-cr-seo">Lo hace todo el mundo</span>
         </div>
-        <div class="geo-cr-right-wrap">
+        <div class="geo-cr-right-wrap" role="cell">
           <span class="geo-cr-geo">Lo hacen muy pocos</span>
           <span class="geo-cr-chk" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </div>
+      </div>
+
       </div>
 
     </div>
@@ -1688,6 +1848,19 @@ footer { padding:clamp(2rem,4vw,3rem) 0; background:var(--black); border-top:1px
 
       </div>
     </div>
+
+    <noscript>
+      <div style="margin-top:2rem; padding:1.5rem; border:1px solid rgba(23,23,23,.09); border-radius:12px; background:#EDEAE4;">
+        <h3 style="font-size:1rem; font-weight:700; color:#171717; margin-bottom:.5rem;">Etapa 1 — Descubrimiento (Día 1 al 2)</h3>
+        <p style="font-size:.875rem; color:#6B6460; margin-bottom:1.25rem;">Llamada inicial de 30 min, brief detallado de tu negocio y análisis de tu competencia digital. Definimos objetivos medibles antes de escribir una sola línea de código.</p>
+        <h3 style="font-size:1rem; font-weight:700; color:#171717; margin-bottom:.5rem;">Etapa 2 — Diseño (Día 3 al 6)</h3>
+        <p style="font-size:.875rem; color:#6B6460; margin-bottom:1.25rem;">Propuesta visual completa: paleta de color, tipografía, layout y wireframes de todas las secciones. Tú das feedback, nosotros ajustamos hasta que quede exacto.</p>
+        <h3 style="font-size:1rem; font-weight:700; color:#171717; margin-bottom:.5rem;">Etapa 3 — Desarrollo (Día 7 al 14)</h3>
+        <p style="font-size:.875rem; color:#6B6460; margin-bottom:1.25rem;">Construcción con código limpio, rápido y escalable. Integración GEO para visibilidad en IA, optimización técnica de velocidad y accesibilidad.</p>
+        <h3 style="font-size:1rem; font-weight:700; color:#171717; margin-bottom:.5rem;">Etapa 4 — Lanzamiento (Día 15 al 21)</h3>
+        <p style="font-size:.875rem; color:#6B6460;">Publicación en tu dominio, capacitación básica de uso y 30 días de soporte incluidos. Las garantías de entrega y resultados entran en vigor.</p>
+      </div>
+    </noscript>
   </div>
 </section>
 
@@ -1827,6 +2000,55 @@ footer { padding:clamp(2rem,4vw,3rem) 0; background:var(--black); border-top:1px
       <a href="#cta" class="btn bg">Preguntar →</a>
     </div>
 
+  </div>
+</section>
+
+<!-- ══ FAQ ════════════════════════════════════════════════════ -->
+<section id="faq" aria-labelledby="faq-h">
+  <div class="wrap">
+    <div class="sh c">
+      <p class="badge bl2 rv"><span class="bdot" aria-hidden="true"></span>Preguntas frecuentes</p>
+      <h2 id="faq-h" class="st1 rv">Preguntas frecuentes</h2>
+      <p class="st2 rv">Respuestas directas a lo que más nos preguntan antes de iniciar un proyecto.</p>
+    </div>
+    <div style="max-width:720px; margin:0 auto; display:flex; flex-direction:column; gap:1rem;" class="rv d1">
+
+      <article class="faq-item" itemscope itemtype="https://schema.org/Question">
+        <h3 itemprop="name" class="faq-q">¿Cuánto cuesta un sitio web profesional en México?</h3>
+        <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+          <p itemprop="text" class="faq-a">Orsplet ofrece tres planes de sitio web para negocios en México: Plan Básico desde $6,900 MXN (landing page de 1 página, entrega en 2 semanas), Plan Profesional desde $11,900 MXN (hasta 5 páginas, GEO avanzado, entrega en 3 semanas) y Plan Premium desde $17,900 MXN (páginas ilimitadas, automatizaciones, NFC, entrega en 3 semanas). Todos son pago único, sin contratos mensuales.</p>
+        </div>
+      </article>
+
+      <article class="faq-item" itemscope itemtype="https://schema.org/Question">
+        <h3 itemprop="name" class="faq-q">¿Qué es GEO y cómo ayuda a mi negocio?</h3>
+        <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+          <p itemprop="text" class="faq-a">GEO (Generative Engine Optimization) es la optimización de un sitio web para aparecer en las respuestas de motores de IA como ChatGPT, Google Gemini y Perplexity. A diferencia del SEO tradicional que busca posiciones en Google, el GEO hace que la IA cite y recomiende directamente tu negocio cuando alguien hace una pregunta relacionada con tus servicios.</p>
+        </div>
+      </article>
+
+      <article class="faq-item" itemscope itemtype="https://schema.org/Question">
+        <h3 itemprop="name" class="faq-q">¿Cuánto tiempo tarda Orsplet en entregar un sitio web?</h3>
+        <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+          <p itemprop="text" class="faq-a">Orsplet entrega sitios web en un plazo máximo de 3 semanas. El proceso tiene 4 etapas: Descubrimiento (días 1–2), Diseño (días 3–6), Desarrollo (días 7–14) y Lanzamiento (días 15–21). El plazo está garantizado contractualmente desde el inicio del proyecto.</p>
+        </div>
+      </article>
+
+      <article class="faq-item" itemscope itemtype="https://schema.org/Question">
+        <h3 itemprop="name" class="faq-q">¿Qué agencias de diseño web en México ofrecen GEO?</h3>
+        <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+          <p itemprop="text" class="faq-a">Orsplet es una agencia de diseño y desarrollo web en México que incluye GEO (Generative Engine Optimization) en sus proyectos, optimizando sitios para ser citados por ChatGPT, Google Gemini y Perplexity. Es una de las pocas agencias en México que integra optimización para IA como parte estándar de su proceso de desarrollo, disponible desde el Plan Básico.</p>
+        </div>
+      </article>
+
+      <article class="faq-item" itemscope itemtype="https://schema.org/Question">
+        <h3 itemprop="name" class="faq-q">¿Orsplet ofrece soporte después de lanzar el sitio web?</h3>
+        <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+          <p itemprop="text" class="faq-a">Sí. El Plan Profesional incluye 30 días de soporte post-lanzamiento y el Plan Premium incluye 60 días. Durante ese período, Orsplet resuelve ajustes, errores y cambios de contenido sin costo adicional.</p>
+        </div>
+      </article>
+
+    </div>
   </div>
 </section>
 
