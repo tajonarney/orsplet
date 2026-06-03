@@ -318,9 +318,15 @@ section { padding:clamp(4rem,8vw,7rem) 0; }
   min-height:100vh;
   min-height:-webkit-fill-available;
   display:flex; flex-direction:column; justify-content:center;
-  padding-top:64px; background:var(--black);
+  padding-top:64px;
+  background:var(--black) url('imagenesweb/HeroBackground.jpg') center 30% / cover no-repeat;
   position:relative; overflow:hidden;
   contain:layout style;
+}
+.h-overlay {
+  position:absolute; inset:0;
+  background:rgba(15,15,15,.82);
+  pointer-events:none; z-index:0;
 }
 .h-grid {
   position:absolute; inset:0;
@@ -403,7 +409,22 @@ section { padding:clamp(4rem,8vw,7rem) 0; }
 .ec-inf p  { font-size:.8125rem; color:var(--t2); line-height:1.57; }
 
 .bv { display:flex; align-items:center; justify-content:center; }
-.bv img { width:100%; max-width:480px; height:auto; object-fit:contain; }
+.brand-img-wrap {
+  position:relative; width:100%; max-width:520px;
+  border-radius:18px; overflow:hidden;
+  box-shadow:0 28px 60px rgba(0,0,0,.18), 0 0 0 1px rgba(47,93,80,.2);
+}
+.brand-img {
+  width:100%; height:auto; display:block;
+  object-fit:cover; border-radius:18px;
+  transition:transform .5s cubic-bezier(.25,.1,.25,1);
+}
+.brand-img-wrap:hover .brand-img { transform:scale(1.03); }
+.brand-img-glow {
+  position:absolute; inset:0; border-radius:18px;
+  background:linear-gradient(135deg, rgba(47,93,80,.12) 0%, transparent 60%);
+  pointer-events:none;
+}
 
 /* ════════════════════════════════════════════════════════
    SERVICES
@@ -450,30 +471,67 @@ section { padding:clamp(4rem,8vw,7rem) 0; }
    PROCESS
 ════════════════════════════════════════════════════════ */
 #proceso { background:var(--white); border-top:1px solid var(--bl); border-bottom:1px solid var(--bl); }
-.proc-g { display:grid; grid-template-columns:repeat(3,1fr); position:relative; list-style:none; }
-.proc-line {
-  position:absolute; top:43px;
-  left:calc(16.67% + 1.5rem); right:calc(16.67% + 1.5rem); height:1px;
-  background:linear-gradient(90deg, transparent, rgba(216,195,165,.4) 20%, rgba(216,195,165,.4) 80%, transparent);
-  pointer-events:none;
+/* Stepper nav */
+.stepper { max-width:840px; margin:clamp(2rem,4vw,3.5rem) auto 0; }
+.stepper-nav { display:flex; align-items:flex-start; }
+.stp-item { display:flex; align-items:flex-start; flex:1; }
+.stp-item:last-child { flex:0 0 auto; }
+.stp-trigger {
+  background:none; border:none; cursor:pointer; padding:0;
+  display:flex; flex-direction:column; align-items:center; gap:.5rem;
+  flex-shrink:0;
 }
-.proc-line::before,.proc-line::after {
-  content:''; position:absolute; top:-3px;
-  width:7px; height:7px; border-radius:50%; background:rgba(216,195,165,.45);
-}
-.proc-line::before { left:0; }
-.proc-line::after  { right:0; }
-.proc-step { padding:clamp(1.25rem,3vw,2rem); text-align:center; }
-.proc-num {
-  width:50px; height:50px; border-radius:50%;
+.stp-trigger:focus-visible { outline:2px solid var(--green); outline-offset:4px; border-radius:4px; }
+.stp-ind {
+  width:44px; height:44px; border-radius:50%; flex-shrink:0;
   border:1px solid rgba(216,195,165,.3); background:var(--sand-xs);
   display:flex; align-items:center; justify-content:center;
-  font-size:.8125rem; font-weight:700; color:var(--t3);
-  margin:0 auto 1.5rem; transition:all .3s var(--ease); position:relative; z-index:1;
+  font-size:.75rem; font-weight:700; color:var(--t3);
+  transition:all .3s var(--ease); position:relative;
 }
-.proc-step:hover .proc-num { background:var(--green); border-color:var(--green); color:var(--white); }
-.proc-step h3 { font-size:clamp(.875rem,1.8vw,1rem); font-weight:700; letter-spacing:-.02em; margin-bottom:.5rem; color:var(--t1); }
-.proc-step p  { font-size:.8125rem; color:var(--t2); line-height:1.62; max-width:200px; margin:0 auto; }
+.stp-ind-num { transition:opacity .2s; }
+.stp-ind-chk { position:absolute; opacity:0; transition:opacity .2s; }
+.stp-item.s-done .stp-ind { background:var(--green); border-color:var(--green); color:#fff; opacity:.5; }
+.stp-item.s-done .stp-ind-num { opacity:0; }
+.stp-item.s-done .stp-ind-chk { opacity:1; }
+.stp-item.s-active .stp-ind { background:var(--green); border-color:var(--green); color:#fff; box-shadow:0 0 22px rgba(47,93,80,.45); }
+.stp-label { display:flex; flex-direction:column; align-items:center; gap:.2rem; }
+.stp-title { font-size:.8125rem; font-weight:700; letter-spacing:-.02em; color:var(--t3); transition:color .3s; white-space:nowrap; }
+.stp-item.s-active .stp-title { color:var(--t1); }
+.stp-item.s-done .stp-title { color:var(--t2); }
+.stp-dur { font-size:.6875rem; color:var(--t3); transition:color .3s; }
+.stp-item.s-active .stp-dur { color:var(--green); font-weight:600; }
+.stp-sep {
+  flex:1; height:1px; margin-top:22px;
+  background:rgba(216,195,165,.25); transition:background .4s var(--ease);
+}
+.stp-item.s-done .stp-sep { background:rgba(47,93,80,.45); }
+
+/* Stepper panel */
+.stepper-panel {
+  margin-top:clamp(1.75rem,3vw,2.5rem);
+  padding:clamp(1.25rem,3vw,2rem);
+  border:1px solid var(--bl); border-radius:var(--r);
+  background:var(--white2);
+  min-height:140px;
+}
+.stp-content { display:none; }
+.stp-content.s-active {
+  display:grid; grid-template-columns:1fr 200px; gap:1.5rem 3rem; align-items:start;
+  animation:stp-in .32s var(--ease);
+}
+@keyframes stp-in { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
+.stp-c-title { font-size:clamp(.9rem,1.6vw,1.0625rem); font-weight:700; letter-spacing:-.025em; color:var(--t1); margin-bottom:.625rem; }
+.stp-c-desc { font-size:.875rem; color:var(--t2); line-height:1.72; }
+.stp-c-del { list-style:none; }
+.stp-c-del-label { font-size:.6rem; font-weight:700; letter-spacing:.1em; color:var(--green); margin-bottom:.625rem; }
+.stp-c-del li { font-size:.78125rem; color:var(--t3); padding-left:1rem; position:relative; margin-bottom:.4rem; }
+.stp-c-del li::before { content:''; position:absolute; left:0; top:.45em; width:5px; height:5px; border-radius:50%; background:var(--green); opacity:.6; }
+@media(max-width:640px) {
+  .stp-title { display:none; }
+  .stp-dur { display:none; }
+  .stp-content.s-active { grid-template-columns:1fr; }
+}
 
 /* ════════════════════════════════════════════════════════
    PHILOSOPHY
@@ -579,8 +637,6 @@ footer { padding:clamp(2rem,4vw,3rem) 0; background:var(--black); border-top:1px
   .svc-g { grid-template-columns:1fr 1fr; }
   .svc.wide { grid-column:span 2; grid-template-columns:1fr; }
   .svc.wide .mp { display:none; }
-  .proc-g { grid-template-columns:1fr 1fr; gap:0; }
-  .proc-line { display:none; }
   .pillars { grid-template-columns:1fr 1fr; gap:.875rem; }
   .ben-g { grid-template-columns:1fr 1fr; }
   .stats-r { grid-template-columns:1fr 1fr !important; max-width:100% !important; margin-left:0 !important; margin-right:0 !important; }
@@ -598,7 +654,6 @@ footer { padding:clamp(2rem,4vw,3rem) 0; background:var(--black); border-top:1px
 @media(max-width:640px){
   .svc-g { grid-template-columns:1fr; }
   .svc.wide { grid-column:span 1; }
-  .proc-g { grid-template-columns:1fr; }
   .pillars { grid-template-columns:1fr; }
   .ben-g { grid-template-columns:1fr; }
   .bv img { max-width:100%; }
@@ -639,6 +694,491 @@ footer { padding:clamp(2rem,4vw,3rem) 0; background:var(--black); border-top:1px
   }
   .rv,.hb,.ht,.hs,.hc,.htr { opacity:1; transform:none; }
 }
+
+/* ══════════════════════════════════════════════════
+   PREMIUM VISUAL SYSTEM
+══════════════════════════════════════════════════ */
+
+/* — Glow base ───────────────────────────────────── */
+.glow { position:absolute; border-radius:50%; pointer-events:none; z-index:0; }
+
+@keyframes gf1 {
+  0%,100% { transform:translate(0,0) scale(1) }
+  33%     { transform:translate(40px,-28px) scale(1.07) }
+  66%     { transform:translate(-18px,32px) scale(.95) }
+}
+@keyframes gf2 {
+  0%,100% { transform:translate(0,0) scale(1) }
+  42%     { transform:translate(-32px,18px) scale(1.06) }
+  72%     { transform:translate(24px,-22px) scale(.97) }
+}
+@keyframes gf3 {
+  0%,100% { transform:translate(0,0) }
+  55%     { transform:translate(18px,-38px) scale(1.04) }
+}
+
+.g-v1 {
+  width:clamp(320px,55vw,720px); height:clamp(320px,55vw,720px);
+  background:radial-gradient(circle, rgba(47,93,80,.5) 0%, transparent 65%);
+  filter:blur(100px);
+  top:-18%; right:-8%;
+  animation:gf1 13s ease-in-out infinite;
+}
+.g-v2 {
+  width:clamp(180px,32vw,480px); height:clamp(180px,32vw,480px);
+  background:radial-gradient(circle, rgba(216,195,165,.22) 0%, transparent 65%);
+  filter:blur(80px);
+  bottom:8%; left:12%;
+  animation:gf2 17s ease-in-out infinite;
+}
+.g-v3 {
+  width:clamp(140px,20vw,300px); height:clamp(140px,20vw,300px);
+  background:radial-gradient(circle, rgba(47,93,80,.24) 0%, transparent 65%);
+  filter:blur(60px);
+  top:45%; left:-4%;
+  animation:gf3 21s ease-in-out infinite;
+}
+.g-phil-1 {
+  width:clamp(240px,42vw,580px); height:clamp(240px,42vw,580px);
+  background:radial-gradient(circle, rgba(47,93,80,.32) 0%, transparent 65%);
+  filter:blur(90px);
+  top:-8%; left:-4%;
+  animation:gf1 15s ease-in-out infinite;
+}
+.g-phil-2 {
+  width:clamp(180px,28vw,420px); height:clamp(180px,28vw,420px);
+  background:radial-gradient(circle, rgba(216,195,165,.11) 0%, transparent 65%);
+  filter:blur(70px);
+  bottom:-4%; right:4%;
+  animation:gf2 19s ease-in-out infinite;
+}
+
+/* — Gradient text animado ───────────────────────── */
+.gtxt {
+  background:linear-gradient(125deg, #ede0c8 0%, #f7f0e0 28%, #D8C3A5 58%, #c8a87a 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:gtxt-f 6s linear infinite;
+  display:inline-block;
+}
+@keyframes gtxt-f {
+  0%   { background-position:0% center }
+  100% { background-position:200% center }
+}
+
+/* — Button shimmer ──────────────────────────────── */
+.bg { position:relative; overflow:hidden; }
+.bg::after {
+  content:''; position:absolute; top:0; left:-100%;
+  width:55%; height:100%;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+  transform:skewX(-15deg);
+  animation:shim 3.5s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes shim {
+  0%       { left:-100% }
+  38%,100% { left:150% }
+}
+
+/* — Card glow hover ─────────────────────────────── */
+.svc:hover {
+  transform:translateY(-4px);
+  box-shadow:0 18px 42px rgba(0,0,0,.09),
+             0 0 0 1px rgba(47,93,80,.45),
+             0 0 32px rgba(47,93,80,.12);
+  border-color:rgba(47,93,80,.4);
+}
+.ben:hover {
+  border-color:rgba(47,93,80,.4);
+  box-shadow:0 6px 26px rgba(0,0,0,.07),
+             0 0 0 1px rgba(47,93,80,.35),
+             0 0 22px rgba(47,93,80,.1);
+}
+
+/* — Glass pillars ───────────────────────────────── */
+.pill {
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  background:rgba(255,255,255,.035);
+  border:1px solid rgba(216,195,165,.14);
+  transition:border-color .35s, background .35s, box-shadow .35s;
+}
+.pill:hover {
+  background:rgba(47,93,80,.14);
+  border-color:rgba(47,93,80,.45);
+  box-shadow:0 0 30px rgba(47,93,80,.2);
+}
+
+/* — Stat number glow ────────────────────────────── */
+.stat-n { text-shadow:0 0 40px rgba(47,93,80,.45); }
+.stat:hover .stat-n { text-shadow:0 0 60px rgba(47,93,80,.65), 0 0 90px rgba(47,93,80,.28); }
+
+/* — Process stepper glow ────────────────────────── */
+.stp-item.s-active .stp-ind { box-shadow:0 0 22px rgba(47,93,80,.45); }
+
+/* — Hero particles ──────────────────────────────── */
+.h-particles { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+.h-p {
+  position:absolute; width:2px; height:2px;
+  border-radius:50%; background:rgba(216,195,165,.65);
+  animation:p-rise var(--d) ease-in-out infinite;
+  animation-delay:var(--dl);
+  left:var(--l); bottom:-4px;
+}
+@keyframes p-rise {
+  0%   { transform:translateY(0) translateX(0); opacity:0 }
+  8%   { opacity:1 }
+  80%  { opacity:.45 }
+  100% { transform:translateY(-90vh) translateX(var(--rx,25px)); opacity:0 }
+}
+
+/* — CTA glow upgrade ────────────────────────────── */
+.cta-glow {
+  width:min(900px,100%);
+  height:520px;
+  background:radial-gradient(ellipse, rgba(47,93,80,.25) 0%, rgba(216,195,165,.07) 45%, transparent 68%);
+}
+
+/* — CTA 2-col layout ────────────────────────────── */
+#cta { text-align:left; }
+.cta-grid {
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:clamp(2rem,5vw,5rem);
+  align-items:center;
+  position:relative; z-index:2;
+}
+.cta-b  { max-width:none; margin:0; }
+.cta-acts { justify-content:flex-start; }
+.cta-img-wrap {
+  width:clamp(200px,24vw,320px);
+  border-radius:22px; overflow:hidden;
+  box-shadow:0 32px 70px rgba(0,0,0,.55), 0 0 0 1px rgba(47,93,80,.25);
+  flex-shrink:0;
+}
+.cta-img { width:100%; height:auto; display:block; object-fit:cover; }
+@media(max-width:860px){
+  .cta-grid { grid-template-columns:1fr; }
+  #cta { text-align:center; }
+  .cta-acts { justify-content:center; }
+  .cta-img-wrap { display:none; }
+}
+
+/* — Beneficios ambient ──────────────────────────── */
+#beneficios { position:relative; overflow:hidden; }
+.ben-glow {
+  position:absolute;
+  width:clamp(280px,45vw,580px); height:clamp(280px,45vw,580px);
+  background:radial-gradient(circle, rgba(47,93,80,.07) 0%, transparent 65%);
+  filter:blur(70px);
+  top:50%; left:50%; transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+#filosofia { position:relative; overflow:hidden; }
+
+/* — GEO Section ─────────────────────────────────── */
+#geo { background:var(--black); }
+#geo .st1 { color:var(--tw1); }
+#geo .st2 { color:var(--tw2); }
+.geo-intro { max-width:600px; }
+.geo-compare {
+  position:relative; overflow:hidden;
+  margin:clamp(2rem,4vw,3.5rem) 0;
+  border:1px solid rgba(47,93,80,.28);
+  border-radius:var(--rl);
+  background:linear-gradient(90deg,
+    rgba(255,255,255,.015) 50%,
+    rgba(47,93,80,.07) 50%
+  );
+}
+.geo-compare::after {
+  content:''; position:absolute; top:0; bottom:0; left:50%;
+  width:1px;
+  background:linear-gradient(180deg,transparent,rgba(47,93,80,.55) 20%,rgba(47,93,80,.55) 80%,transparent);
+  pointer-events:none;
+}
+.geo-compare-head {
+  display:grid; grid-template-columns:1fr 1fr;
+  padding:1rem 2rem;
+  background:rgba(0,0,0,.18);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  align-items:center; position:relative; z-index:1;
+}
+.geo-ch-left {
+  font-size:.6875rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase;
+  color:rgba(247,245,242,.3);
+}
+.geo-ch-right {
+  font-size:.6875rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--green); text-align:right;
+  display:flex; align-items:center; justify-content:flex-end; gap:.5rem;
+}
+.geo-new-badge {
+  font-size:.55rem; font-weight:800; letter-spacing:.08em;
+  background:var(--green); color:#fff;
+  padding:2px 8px; border-radius:100px; text-transform:uppercase;
+}
+.geo-compare-row {
+  display:grid; grid-template-columns:1fr 1fr;
+  border-bottom:1px solid rgba(255,255,255,.045);
+  position:relative; z-index:1;
+}
+.geo-compare-row:last-child { border-bottom:none; }
+.geo-compare-row:hover .geo-cr-left-wrap { background:rgba(255,255,255,.02); }
+.geo-compare-row:hover .geo-cr-right-wrap { background:rgba(47,93,80,.05); }
+.geo-cr-left-wrap {
+  padding:1.5rem 1.75rem 1.5rem 2rem;
+  display:flex; flex-direction:column; gap:.375rem;
+  transition:background .2s;
+}
+.geo-cr-cat {
+  font-size:.6rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  color:rgba(247,245,242,.3);
+}
+.geo-cr-seo {
+  font-size:1.0625rem; font-weight:500; color:rgba(247,245,242,.28);
+  text-decoration:line-through; text-decoration-color:rgba(247,245,242,.14);
+  letter-spacing:-.01em;
+}
+.geo-cr-right-wrap {
+  padding:1.5rem 2rem 1.5rem 1.75rem;
+  display:flex; align-items:center; justify-content:flex-end; gap:.75rem;
+  transition:background .2s;
+}
+.geo-cr-geo {
+  font-size:1.125rem; font-weight:700; letter-spacing:-.03em;
+  color:var(--sand); text-align:right; line-height:1.2;
+}
+.geo-cr-chk {
+  width:24px; height:24px; border-radius:50%; flex-shrink:0;
+  background:rgba(47,93,80,.3); border:1px solid rgba(47,93,80,.65);
+  display:flex; align-items:center; justify-content:center; color:var(--green);
+}
+.geo-cr-chk svg { width:11px; height:11px; }
+.geo-close {
+  text-align:center; font-size:clamp(.9375rem,1.6vw,1.125rem);
+  font-weight:600; letter-spacing:-.02em; color:var(--tw2); line-height:1.6;
+  max-width:580px; margin:0 auto;
+  padding-top:clamp(1.5rem,3vw,2.5rem);
+  border-top:1px solid rgba(247,245,242,.07);
+}
+.geo-close span { color:var(--sand); }
+@media(max-width:640px){
+  .geo-compare { background:none; }
+  .geo-compare::after { display:none; }
+  .geo-compare-head { grid-template-columns:1fr 1fr; padding:.875rem 1.25rem; }
+  .geo-compare-row { grid-template-columns:1fr 1fr; }
+  .geo-cr-left-wrap { padding:1.125rem 1rem 1.125rem 1.25rem; }
+  .geo-cr-right-wrap { padding:1.125rem 1.25rem 1.125rem 1rem; }
+  .geo-cr-seo { font-size:.875rem; }
+  .geo-cr-geo { font-size:.9375rem; }
+  .geo-cr-chk { display:none; }
+}
+
+/* — Pricing Section ─────────────────────────────── */
+#precios { background:var(--white2); }
+.price-g {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:clamp(.75rem,1.5vw,1.25rem);
+  margin-bottom:clamp(1.5rem,3vw,2.5rem);
+}
+.pc {
+  padding:clamp(1.5rem,3vw,2rem);
+  border:1px solid var(--bl); border-radius:var(--rl);
+  background:var(--white);
+  display:flex; flex-direction:column;
+  position:relative; overflow:hidden;
+  transition:transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+.pc:hover { transform:translateY(-3px); box-shadow:0 12px 32px rgba(0,0,0,.07); }
+.pc.featured {
+  border-color:rgba(47,93,80,.5);
+  box-shadow:0 0 44px rgba(47,93,80,.14), 0 0 0 1px rgba(47,93,80,.3);
+}
+.pc.featured::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg, var(--green), var(--sand), transparent);
+}
+.pc-popular {
+  position:absolute; top:1.25rem; right:1.25rem;
+  font-size:.6rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+  background:var(--green); color:var(--white);
+  padding:3px 9px; border-radius:100px;
+}
+.pc-tier { font-size:.75rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--t3); margin-bottom:1rem; }
+.featured .pc-tier { color:var(--green); }
+.pc-price { font-size:clamp(2rem,4vw,2.75rem); font-weight:800; letter-spacing:-.05em; line-height:1; color:var(--t1); margin-bottom:.3rem; }
+.pc-price sup { font-size:.875rem; font-weight:600; vertical-align:top; margin-top:.5rem; display:inline-block; }
+.pc-price span { font-size:.8125rem; font-weight:500; color:var(--t3); letter-spacing:0; }
+.pc-since { font-size:.75rem; color:var(--t3); margin-bottom:1.25rem; }
+.pc-desc { font-size:.845rem; color:var(--t2); line-height:1.62; margin-bottom:1.25rem; padding-bottom:1.25rem; border-bottom:1px solid var(--bl); }
+.pc-feats { list-style:none; display:flex; flex-direction:column; gap:.625rem; margin-bottom:1.75rem; flex:1; }
+.pc-feats li { display:flex; align-items:flex-start; gap:.625rem; font-size:.845rem; color:var(--t2); line-height:1.4; }
+.pc-feats li::before { content:'✓'; color:var(--green); font-weight:700; font-size:.75rem; flex-shrink:0; margin-top:.1rem; }
+.pc-nfc-note { font-size:.75rem; color:var(--t3); margin-top:.875rem; text-align:center; }
+.pc-nfc-note a { color:var(--green); text-decoration:none; font-weight:600; }
+.pc-nfc-note a:hover { text-decoration:underline; }
+.pc .btn { width:100%; justify-content:center; }
+
+/* — Garantías ───────────────────────────────────── */
+.garantias-g {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:clamp(.75rem,1.5vw,1.125rem);
+  margin-top:clamp(1.5rem,3vw,2.5rem);
+}
+.gar {
+  display:flex; align-items:center; gap:.875rem;
+  padding:clamp(1rem,2vw,1.375rem) clamp(1rem,2vw,1.5rem);
+  border:1px solid var(--bl); border-radius:var(--r);
+  background:var(--white);
+  transition:border-color .3s, box-shadow .3s;
+}
+.gar:hover { border-color:rgba(47,93,80,.4); box-shadow:0 4px 16px rgba(0,0,0,.05); }
+.gar-ico { width:34px; height:34px; border-radius:8px; flex-shrink:0; background:rgba(47,93,80,.08); border:1px solid rgba(47,93,80,.16); display:flex; align-items:center; justify-content:center; color:var(--green); }
+.gar-ico svg { width:15px; height:15px; }
+.gar-b h4 { font-size:.875rem; font-weight:700; letter-spacing:-.01em; color:var(--t1); margin-bottom:.2rem; }
+.gar-b p { font-size:.75rem; color:var(--t3); line-height:1.5; }
+
+@media(max-width:860px){
+  .price-g { grid-template-columns:1fr; max-width:400px; margin-left:auto; margin-right:auto; }
+  .garantias-g { grid-template-columns:1fr; max-width:400px; margin-left:auto; margin-right:auto; }
+}
+
+/* — NFC Service Card Visual ─────────────────────── */
+.nfc-vis { display:flex; align-items:center; justify-content:center; gap:3rem; }
+.nfc-c {
+  width:min(150px,90%); aspect-ratio:1.586;
+  border-radius:14px;
+  background:linear-gradient(135deg,#161616 0%,#212121 100%);
+  border:1px solid rgba(255,255,255,.1);
+  padding:1.25rem;
+  box-shadow:0 24px 50px rgba(0,0,0,.45), 0 0 0 1px rgba(47,93,80,.22);
+  position:relative; overflow:hidden;
+  display:flex; flex-direction:column; justify-content:space-between;
+}
+.nfc-c::before {
+  content:''; position:absolute;
+  top:-30%; right:-10%; width:70%; height:70%;
+  background:radial-gradient(circle,rgba(47,93,80,.5) 0%,transparent 65%);
+  filter:blur(18px); border-radius:50%; pointer-events:none;
+}
+.nfc-c-top { display:flex; justify-content:space-between; align-items:center; z-index:1; }
+.nfc-c-logo { font-size:.6rem; font-weight:800; letter-spacing:-.02em; color:rgba(216,195,165,.8); }
+.nfc-c-bot { z-index:1; }
+.nfc-c-name { font-size:.55rem; font-weight:600; color:rgba(247,245,242,.45); margin-bottom:.25rem; }
+.nfc-c-cta { font-size:.48rem; color:var(--green); font-weight:700; letter-spacing:.06em; text-transform:uppercase; }
+
+/* — Ecosistema Section ──────────────────────────── */
+#ecosistema { background:var(--black); }
+#ecosistema .st1 { color:var(--tw1); }
+#ecosistema .st2 { color:var(--tw2); }
+.eco-g {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:clamp(.75rem,1.5vw,1.25rem); align-items:stretch;
+  margin-top:clamp(2rem,4vw,3.5rem);
+}
+.eco-pill {
+  padding:clamp(1.25rem,3vw,2.25rem);
+  border:1px solid rgba(216,195,165,.1); border-radius:var(--rl);
+  background:rgba(255,255,255,.025); text-align:center;
+  transition:border-color .35s, background .35s, box-shadow .35s;
+  display:flex; flex-direction:column; gap:0;
+}
+.eco-pill:hover { border-color:rgba(47,93,80,.4); background:rgba(47,93,80,.07); box-shadow:0 0 28px rgba(47,93,80,.15); }
+.eco-n { font-size:.6rem; font-weight:700; letter-spacing:.1em; color:var(--green); margin-bottom:.75rem; }
+.eco-ico {
+  width:50px; height:50px; border-radius:12px;
+  background:rgba(47,93,80,.1); border:1px solid rgba(47,93,80,.2);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--green); margin:0 auto 1rem;
+}
+.eco-ico svg { width:22px; height:22px; }
+.eco-h { font-size:clamp(.875rem,1.5vw,.9375rem); font-weight:700; letter-spacing:-.02em; color:var(--tw1); margin-bottom:.4rem; }
+.eco-p { font-size:.8125rem; color:var(--tw2); line-height:1.57; flex:1; }
+.eco-tag {
+  display:inline-block; margin-top:1.125rem;
+  font-size:.6875rem; font-weight:600; letter-spacing:.04em;
+  color:var(--green); background:rgba(47,93,80,.1);
+  border:1px solid rgba(47,93,80,.2); border-radius:999px;
+  padding:.25rem .75rem;
+}
+.eco-close {
+  margin-top:clamp(1.5rem,3vw,2.5rem);
+  padding:clamp(1.25rem,2.5vw,1.875rem) clamp(1.5rem,3vw,2.5rem);
+  border:1px solid rgba(47,93,80,.28); border-radius:var(--r);
+  background:rgba(47,93,80,.07); text-align:center;
+}
+.eco-close p { font-size:clamp(.9375rem,1.5vw,1.0625rem); font-weight:700; letter-spacing:-.02em; color:var(--tw1); line-height:1.5; }
+.eco-close span { color:var(--sand); }
+@media(max-width:860px){
+  .eco-g { grid-template-columns:1fr; gap:clamp(.75rem,1.5vw,1rem); }
+}
+
+/* — NFC Add-on in Pricing ───────────────────────── */
+.nfc-addon {
+  display:flex; align-items:center; gap:1.25rem; flex-wrap:wrap;
+  margin-top:clamp(1rem,2vw,1.5rem);
+  padding:clamp(1rem,2.5vw,1.5rem) clamp(1.25rem,3vw,2rem);
+  border:1px dashed rgba(47,93,80,.45); border-radius:var(--r);
+  background:rgba(47,93,80,.05);
+}
+.nfc-addon-ico {
+  width:40px; height:40px; border-radius:9px; flex-shrink:0;
+  background:rgba(47,93,80,.12); border:1px solid rgba(47,93,80,.22);
+  display:flex; align-items:center; justify-content:center; color:var(--green);
+}
+.nfc-addon-ico svg { width:18px; height:18px; }
+.nfc-addon-txt { flex:1; min-width:200px; }
+.nfc-addon-txt strong { display:block; font-size:.9rem; font-weight:700; color:var(--t1); margin-bottom:.2rem; }
+.nfc-addon-txt span { font-size:.8125rem; color:var(--t2); }
+.nfc-addon-txt em { font-style:normal; color:var(--green); font-weight:600; }
+
+/* — Hero diagram — more visible ─────────────────── */
+@keyframes hd-breathe { 0%,100%{opacity:.22} 50%{opacity:.36} }
+.h-diagram { opacity:.28; }
+
+/* — Premium browser mockup ──────────────────────── */
+.mp {
+  background:#0d0d0d;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:10px;
+  overflow:hidden;
+  padding:0;
+  box-shadow:0 24px 56px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.04);
+}
+.mp-bar {
+  background:#171717;
+  padding:9px 12px;
+  display:flex; align-items:center; gap:8px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.mp-d { gap:5px; margin-bottom:0; align-items:center; }
+.mp-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.mp-url {
+  flex:1; background:rgba(255,255,255,.05); border-radius:4px;
+  height:16px; font-size:8px; color:rgba(255,255,255,.25);
+  display:flex; align-items:center; justify-content:center;
+  font-family:monospace; letter-spacing:.04em;
+}
+.mp-screen { padding:14px; background:#0b0b0b; position:relative; overflow:hidden; }
+.mp-scr-g {
+  position:absolute; width:140px; height:140px;
+  background:radial-gradient(circle, rgba(47,93,80,.6) 0%, transparent 70%);
+  filter:blur(30px);
+  top:-20px; right:-10px;
+  border-radius:50%; pointer-events:none;
+}
+.mp-nav  { height:7px; background:rgba(255,255,255,.06); border-radius:2px; width:100%; margin-bottom:13px; }
+.mp-h1m  { height:13px; background:linear-gradient(90deg,rgba(216,195,165,.78),rgba(216,195,165,.28)); border-radius:3px; width:66%; margin-bottom:7px; }
+.mp-h2m  { height:8px; background:rgba(255,255,255,.11); border-radius:2px; width:88%; margin-bottom:13px; }
+.mp-bm   { display:flex; gap:7px; margin-bottom:13px; }
+.mp-bg   { height:22px; width:80px; background:rgba(47,93,80,.8); border-radius:5px; }
+.mp-bo   { height:22px; width:64px; background:transparent; border:1px solid rgba(255,255,255,.1); border-radius:5px; }
+.mp-cm   { display:flex; gap:5px; }
+.mp-cs   { flex:1; height:46px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.05); border-radius:5px; }
 </style>
 </head>
 <body>
@@ -659,10 +1199,9 @@ footer { padding:clamp(2rem,4vw,3rem) 0; background:var(--black); border-top:1px
       </a>
 
       <ul class="nl" role="list">
-        <li><a href="#brand">Nosotros</a></li>
         <li><a href="#servicios">Servicios</a></li>
         <li><a href="#proceso">Proceso</a></li>
-        <li><a href="#filosofia">Filosofía</a></li>
+        <li><a href="#precios">Precios</a></li>
       </ul>
 
       <div class="na">
@@ -683,10 +1222,9 @@ footer { padding:clamp(2rem,4vw,3rem) 0; background:var(--black); border-top:1px
 
 <!-- Mobile drawer -->
 <div id="drawer" role="dialog" aria-modal="true" aria-label="Menú de navegación móvil">
-  <a href="#brand"     onclick="closeD()">Nosotros</a>
   <a href="#servicios" onclick="closeD()">Servicios</a>
   <a href="#proceso"   onclick="closeD()">Proceso</a>
-  <a href="#filosofia" onclick="closeD()">Filosofía</a>
+  <a href="#precios"   onclick="closeD()">Precios</a>
   <a href="#cta" class="btn bg blg dc" onclick="closeD()">Comenzar proyecto</a>
 </div>
 
@@ -694,8 +1232,19 @@ footer { padding:clamp(2rem,4vw,3rem) 0; background:var(--black); border-top:1px
 
 <!-- ══ HERO ══════════════════════════════════════════════════ -->
 <section id="hero" aria-labelledby="hero-h">
-  <div class="h-grid" aria-hidden="true"></div>
+  <div class="h-overlay" aria-hidden="true"></div>
   <div class="h-vignette" aria-hidden="true"></div>
+  <div class="glow g-v1" aria-hidden="true"></div>
+  <div class="glow g-v2" aria-hidden="true"></div>
+  <div class="glow g-v3" aria-hidden="true"></div>
+  <div class="h-particles" aria-hidden="true">
+    <div class="h-p" style="--d:8s;--dl:0s;--l:14%;--rx:28px"></div>
+    <div class="h-p" style="--d:11s;--dl:2.5s;--l:34%;--rx:-22px"></div>
+    <div class="h-p" style="--d:9s;--dl:4s;--l:54%;--rx:24px"></div>
+    <div class="h-p" style="--d:13s;--dl:1s;--l:72%;--rx:-32px"></div>
+    <div class="h-p" style="--d:10s;--dl:6s;--l:84%;--rx:18px"></div>
+    <div class="h-p" style="--d:7.5s;--dl:3.5s;--l:24%;--rx:-26px"></div>
+  </div>
 
   <svg class="h-diagram" viewBox="0 0 380 380" fill="none" aria-hidden="true" focusable="false">
     <circle cx="190" cy="190" r="10" fill="#D8C3A5" fill-opacity=".1" stroke="#D8C3A5" stroke-width="1" stroke-opacity=".25"/>
@@ -733,7 +1282,7 @@ footer { padding:clamp(2rem,4vw,3rem) 0; background:var(--black); border-top:1px
       <h1 id="hero-h" class="h-title ht">
         Tu negocio,<br>
         tu presencia.<br>
-        <span class="sand">Redefinida.</span>
+        <span class="gtxt">Redefinida.</span>
       </h1>
 
       <p class="h-sub hs">
@@ -759,7 +1308,7 @@ footer { padding:clamp(2rem,4vw,3rem) 0; background:var(--black); border-top:1px
         <li class="tsep" aria-hidden="true"></li>
         <li class="ti">
           <svg viewBox="0 0 14 14" fill="none" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.3"/><path d="M7 4v3l2 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-          <span>Entrega en tiempo</span>
+          <span>Entrega en 3 semanas</span>
         </li>
         <li class="tsep" aria-hidden="true"></li>
         <li class="ti">
@@ -773,53 +1322,6 @@ footer { padding:clamp(2rem,4vw,3rem) 0; background:var(--black); border-top:1px
   <div class="scroll-h" aria-hidden="true">
     <div class="s-line"></div>
     <span class="s-txt">Scroll</span>
-  </div>
-</section>
-
-<!-- ══ STRIP ═════════════════════════════════════════════════ -->
-<div class="strip" aria-hidden="true">
-  <p>Conectando negocios con su presencia digital — <span>desde el origen.</span></p>
-</div>
-
-<!-- ══ BRAND ═════════════════════════════════════════════════ -->
-<section id="brand" aria-labelledby="brand-h">
-  <div class="wrap">
-    <div class="brand-g">
-      <div>
-        <p class="badge bl2 rv"><span class="bdot" aria-hidden="true"></span>Nuestra identidad</p>
-        <h2 id="brand-h" class="st1 rv">¿Qué es<br>Orsplet?</h2>
-        <p class="st2 rv">
-          No somos una agencia genérica. Somos un estudio de diseño web construido sobre un propósito
-          claro: conectar negocios reales con su presencia digital auténtica y estratégica.
-        </p>
-        <div class="etym" role="list" aria-label="Significado del nombre Orsplet">
-          <div class="ec rv d1" role="listitem">
-            <span class="ec-tag" aria-hidden="true">Or</span>
-            <div class="ec-inf">
-              <h3>Origen · Esencia · Valor</h3>
-              <p>La raíz de todo negocio. Su identidad, su historia, su razón de existir. Siempre partimos desde el ADN auténtico de tu marca.</p>
-            </div>
-          </div>
-          <div class="ec rv d2" role="listitem">
-            <span class="ec-tag" aria-hidden="true">Splet</span>
-            <div class="ec-inf">
-              <h3>Red · Web · Conexión</h3>
-              <p>La tela digital que enlaza tu esencia con el mundo. Construimos puentes entre tu negocio y las personas que más lo necesitan.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="bv rv">
-        <img
-          src="Logoorsplet-verde.png"
-          alt="Logo Orsplet — Estudio de Diseño y Desarrollo Web Premium"
-          loading="lazy"
-          decoding="async"
-          style="max-width:480px;width:100%;height:auto;object-fit:contain;"
-        />
-      </div>
-    </div>
   </div>
 </section>
 
@@ -847,18 +1349,28 @@ footer { padding:clamp(2rem,4vw,3rem) 0; background:var(--black); border-top:1px
           </ul>
         </div>
         <div class="mp" aria-hidden="true">
-          <div class="mp-d">
-            <div class="mp-dot" style="background:#FF5F56"></div>
-            <div class="mp-dot" style="background:#FFBD2E"></div>
-            <div class="mp-dot" style="background:#27C93F"></div>
+          <div class="mp-bar">
+            <div class="mp-d">
+              <div class="mp-dot" style="background:#FF5F56"></div>
+              <div class="mp-dot" style="background:#FFBD2E"></div>
+              <div class="mp-dot" style="background:#27C93F"></div>
+            </div>
+            <div class="mp-url">tusitio.com</div>
           </div>
-          <div class="mp-b" style="width:58%"></div>
-          <div class="mp-b" style="width:40%"></div>
-          <div class="mp-b" style="width:72%;margin-top:10px"></div>
-          <div class="mp-b" style="width:60%"></div>
-          <div class="mp-btns">
-            <div class="mp-btn" style="width:82px;background:#2F5D50;opacity:.65"></div>
-            <div class="mp-btn" style="width:70px;border:1px solid rgba(23,23,23,.1)"></div>
+          <div class="mp-screen">
+            <div class="mp-scr-g"></div>
+            <div class="mp-nav"></div>
+            <div class="mp-h1m"></div>
+            <div class="mp-h2m"></div>
+            <div class="mp-bm">
+              <div class="mp-bg"></div>
+              <div class="mp-bo"></div>
+            </div>
+            <div class="mp-cm">
+              <div class="mp-cs"></div>
+              <div class="mp-cs"></div>
+              <div class="mp-cs"></div>
+            </div>
           </div>
         </div>
       </article>
@@ -866,12 +1378,17 @@ footer { padding:clamp(2rem,4vw,3rem) 0; background:var(--black); border-top:1px
       <article class="svc rv d2" aria-labelledby="svc-4-h">
         <p class="svc-n">02</p>
         <div class="svc-ico" aria-hidden="true">
-          <svg viewBox="0 0 20 20" fill="none" focusable="false"><path d="M10 3C6.13 3 3 6.13 3 10s3.13 7 7 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M14 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 7v3l2 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <svg viewBox="0 0 20 20" fill="none" focusable="false">
+            <circle cx="10" cy="4.5" r="1.8" stroke="currentColor" stroke-width="1.3"/>
+            <circle cx="3.5" cy="14.5" r="1.8" stroke="currentColor" stroke-width="1.3"/>
+            <circle cx="16.5" cy="14.5" r="1.8" stroke="currentColor" stroke-width="1.3"/>
+            <path d="M10 6.3v3.5M10 9.8L3.5 12.7M10 9.8L16.5 12.7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
         </div>
-        <h3 id="svc-4-h">Optimización Web y SEO</h3>
-        <p>Velocidad, SEO técnico y conversión. Optimizamos sitios para que carguen rápido, ranqueen mejor en Google y conviertan más visitantes.</p>
+        <h3 id="svc-4-h">GEO: Visibilidad en la Era IA</h3>
+        <p>Ya no basta con salir en Google. Optimizamos tu sitio para que aparezca en las respuestas de ChatGPT, Gemini y Google AI Overviews cuando alguien busque lo que tú vendes.</p>
         <ul class="svc-tags" aria-label="Áreas de optimización">
-          <li class="tag">SEO Técnico</li><li class="tag">Performance</li><li class="tag">Core Web Vitals</li>
+          <li class="tag">GEO</li><li class="tag">IA Overviews</li><li class="tag">ChatGPT</li><li class="tag">Gemini</li>
         </ul>
       </article>
 
@@ -886,7 +1403,109 @@ footer { padding:clamp(2rem,4vw,3rem) 0; background:var(--black); border-top:1px
           <li class="tag">Motion Design</li><li class="tag">Interacción</li><li class="tag">Premium UX</li>
         </ul>
       </article>
+
+      <article class="svc wide rv d2" aria-labelledby="svc-6-h">
+        <div>
+          <p class="svc-n">04</p>
+          <div class="svc-ico" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none" focusable="false">
+              <rect x="3" y="4" width="10" height="13" rx="1.5" stroke="currentColor" stroke-width="1.3"/>
+              <path d="M15 8.5c1.2 1 1.8 2.3 1.8 3.5s-.6 2.5-1.8 3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+              <path d="M13 10c.7.6 1.1 1.4 1.1 2s-.4 1.4-1.1 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 id="svc-6-h">NFC + QR: Reputación en Piloto Automático</h3>
+          <p>Una placa de mostrador o tarjeta NFC que vive en tu negocio y trabaja sola. Tu cliente acerca el teléfono y en 2 segundos deja su reseña en Google. Sin pedírselo. Sin apps. Sin fricción. Más reseñas = mejor ranking orgánico sin pagar publicidad.</p>
+          <ul class="svc-tags" aria-label="Tipos de producto NFC">
+            <li class="tag">Tarjeta NFC</li><li class="tag">Google Reviews</li><li class="tag">QR Inteligente</li><li class="tag">Placa Mostrador</li>
+          </ul>
+        </div>
+        <div class="nfc-vis" aria-hidden="true">
+          <img
+            src="imagenesweb/card.png"
+            alt="Tarjeta NFC ORSPLET"
+            loading="lazy"
+            decoding="async"
+            style="max-height:190px;width:auto;object-fit:contain;filter:drop-shadow(0 6px 24px rgba(0,0,0,.35));"
+          />
+          <img
+            src="imagenesweb/placa.png"
+            alt="Placa de mostrador NFC ORSPLET"
+            loading="lazy"
+            decoding="async"
+            style="max-height:280px;width:auto;object-fit:contain;filter:drop-shadow(0 8px 32px rgba(0,0,0,.35));"
+          />
+        </div>
+      </article>
     </div>
+  </div>
+</section>
+
+<!-- ══ GEO ════════════════════════════════════════════════════ -->
+<section id="geo" aria-labelledby="geo-h">
+  <div class="wrap">
+    <div class="sh rv">
+      <p class="badge bd"><span class="bdot" aria-hidden="true"></span>La nueva era digital</p>
+      <h2 id="geo-h" class="st1 dk rv">Todos hacen SEO.<br><span class="gtxt">Nosotros hacemos GEO.</span></h2>
+      <p class="st2 dk rv">Millones de personas ya buscan en ChatGPT, Gemini y Perplexity en lugar de Google. Si tu negocio no aparece en esas respuestas, eres invisible para ellos.</p>
+    </div>
+
+    <div class="geo-compare rv">
+
+      <div class="geo-compare-head">
+        <span class="geo-ch-left">SEO Tradicional</span>
+        <span class="geo-ch-right">GEO <span class="geo-new-badge">Nuevo</span></span>
+      </div>
+
+      <div class="geo-compare-row">
+        <div class="geo-cr-left-wrap">
+          <span class="geo-cr-cat">Objetivo</span>
+          <span class="geo-cr-seo">Posición en Google</span>
+        </div>
+        <div class="geo-cr-right-wrap">
+          <span class="geo-cr-geo">Respuestas de IA</span>
+          <span class="geo-cr-chk" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+      </div>
+
+      <div class="geo-compare-row">
+        <div class="geo-cr-left-wrap">
+          <span class="geo-cr-cat">Método</span>
+          <span class="geo-cr-seo">Keywords y backlinks</span>
+        </div>
+        <div class="geo-cr-right-wrap">
+          <span class="geo-cr-geo">Contenido citable por IA</span>
+          <span class="geo-cr-chk" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+      </div>
+
+      <div class="geo-compare-row">
+        <div class="geo-cr-left-wrap">
+          <span class="geo-cr-cat">Resultado</span>
+          <span class="geo-cr-seo">Clics al sitio</span>
+        </div>
+        <div class="geo-cr-right-wrap">
+          <span class="geo-cr-geo">Menciones directas en IA</span>
+          <span class="geo-cr-chk" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+      </div>
+
+      <div class="geo-compare-row">
+        <div class="geo-cr-left-wrap">
+          <span class="geo-cr-cat">Ventaja</span>
+          <span class="geo-cr-seo">Lo hace todo el mundo</span>
+        </div>
+        <div class="geo-cr-right-wrap">
+          <span class="geo-cr-geo">Lo hacen muy pocos</span>
+          <span class="geo-cr-chk" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="geo-close rv">
+      ORSPLET construye sitios que <span>Google, ChatGPT y Gemini</span> entienden, citan y recomiendan.
+    </p>
   </div>
 </section>
 
@@ -897,116 +1516,259 @@ footer { padding:clamp(2rem,4vw,3rem) 0; background:var(--black); border-top:1px
       <p class="badge bl2 rv"><span class="bdot" aria-hidden="true"></span>Cómo trabajamos</p>
       <h2 id="proc-h" class="st1 rv">Proceso claro,<br>resultados precisos</h2>
     </div>
-    <ol class="proc-g" aria-label="Proceso de trabajo en 3 pasos">
-      <div class="proc-line" aria-hidden="true"></div>
-      <li class="proc-step rv">
-        <div class="proc-num" aria-hidden="true">01</div>
-        <h3>Descubrimiento</h3>
-        <p>Entendemos tu negocio, tus objetivos y tu audiencia. Cada detalle importa para construir algo auténtico.</p>
-      </li>
-      <li class="proc-step rv d1">
-        <div class="proc-num" aria-hidden="true">02</div>
-        <h3>Diseño &amp; Desarrollo</h3>
-        <p>Creamos tu identidad visual y la construimos con tecnología moderna, limpia y escalable.</p>
-      </li>
-      <li class="proc-step rv d2">
-        <div class="proc-num" aria-hidden="true">03</div>
-        <h3>Lanzamiento</h3>
-        <p>Publicamos tu sitio optimizado y te acompañamos en el crecimiento de tu presencia digital.</p>
-      </li>
-    </ol>
-  </div>
-</section>
 
-<!-- ══ FILOSOFÍA ═════════════════════════════════════════════ -->
-<section id="filosofia" aria-labelledby="phil-heading">
-  <div class="wrap">
-    <div class="phil">
-      <h2 id="phil-heading" class="sr-only">Nuestra Filosofía de Diseño Web</h2>
-      <p class="badge bd rv"><span class="bdot" aria-hidden="true"></span>Nuestra filosofía</p>
-      <blockquote class="phil-q rv">
-        "Todo negocio tiene una historia que merece ser contada con
-        <span class="sand">diseño inteligente</span> y
-        <span class="sand">tecnología que conecta.</span>"
-      </blockquote>
-      <p class="phil-sub rv">En Orsplet el diseño web no es decoración: es comunicación estratégica. Cada decisión visual, cada interacción y cada línea de código tiene un propósito: conectar tu negocio con las personas que más lo necesitan.</p>
-      <div class="pillars">
-        <div class="pill rv">
-          <p class="pill-n">01</p>
-          <h3>Negocios Reales</h3>
-          <p>Trabajamos con emprendedores y empresas que tienen productos reales que merecen una presencia digital auténtica.</p>
+    <div class="stepper rv" role="tablist" aria-label="Proceso de trabajo en 4 etapas">
+
+      <nav class="stepper-nav">
+
+        <div class="stp-item" role="presentation">
+          <button class="stp-trigger" role="tab" aria-selected="true" aria-controls="stp-panel-1" id="stp-tab-1">
+            <span class="stp-ind" aria-hidden="true">
+              <span class="stp-ind-num">01</span>
+              <svg class="stp-ind-chk" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3 3 6-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="stp-label">
+              <span class="stp-title">Descubrimiento</span>
+              <span class="stp-dur">Día 1 al 2</span>
+            </span>
+          </button>
+          <div class="stp-sep" aria-hidden="true"></div>
         </div>
-        <div class="pill rv d1">
-          <p class="pill-n">02</p>
-          <h3>Identidad Auténtica</h3>
-          <p>Cada proyecto nace del ADN de tu marca para ser reconocible y memorable. Paleta de colores, animaciones y más.</p>
+
+        <div class="stp-item" role="presentation">
+          <button class="stp-trigger" role="tab" aria-selected="false" aria-controls="stp-panel-2" id="stp-tab-2">
+            <span class="stp-ind" aria-hidden="true">
+              <span class="stp-ind-num">02</span>
+              <svg class="stp-ind-chk" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3 3 6-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="stp-label">
+              <span class="stp-title">Diseño</span>
+              <span class="stp-dur">Día 3 al 6</span>
+            </span>
+          </button>
+          <div class="stp-sep" aria-hidden="true"></div>
         </div>
-        <div class="pill rv d2">
-          <p class="pill-n">03</p>
-          <h3>Diseño Estratégico</h3>
-          <p>Diseñamos con intención. Cada elemento comunica, convierte y hace crecer tu negocio.</p>
+
+        <div class="stp-item" role="presentation">
+          <button class="stp-trigger" role="tab" aria-selected="false" aria-controls="stp-panel-3" id="stp-tab-3">
+            <span class="stp-ind" aria-hidden="true">
+              <span class="stp-ind-num">03</span>
+              <svg class="stp-ind-chk" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3 3 6-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="stp-label">
+              <span class="stp-title">Desarrollo</span>
+              <span class="stp-dur">Día 7 al 14</span>
+            </span>
+          </button>
+          <div class="stp-sep" aria-hidden="true"></div>
         </div>
+
+        <div class="stp-item" role="presentation">
+          <button class="stp-trigger" role="tab" aria-selected="false" aria-controls="stp-panel-4" id="stp-tab-4">
+            <span class="stp-ind" aria-hidden="true">
+              <span class="stp-ind-num">04</span>
+              <svg class="stp-ind-chk" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3 3 6-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="stp-label">
+              <span class="stp-title">Lanzamiento</span>
+              <span class="stp-dur">Día 15 al 21</span>
+            </span>
+          </button>
+        </div>
+
+      </nav>
+
+      <div class="stepper-panel">
+
+        <div class="stp-content s-active" id="stp-panel-1" role="tabpanel" aria-labelledby="stp-tab-1">
+          <div>
+            <h3 class="stp-c-title">Descubrimiento</h3>
+            <p class="stp-c-desc">Llamada inicial de 30 min, brief detallado de tu negocio y análisis de tu competencia digital. Definimos objetivos medibles antes de escribir una sola línea de código.</p>
+          </div>
+          <div>
+            <p class="stp-c-del-label">ENTREGABLES</p>
+            <ul class="stp-c-del">
+              <li>Brief firmado</li>
+              <li>Mapa de objetivos</li>
+              <li>Análisis de competencia</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="stp-content" id="stp-panel-2" role="tabpanel" aria-labelledby="stp-tab-2">
+          <div>
+            <h3 class="stp-c-title">Diseño</h3>
+            <p class="stp-c-desc">Propuesta visual completa: paleta de color, tipografía, layout y wireframes de todas las secciones. Tú das feedback, nosotros ajustamos hasta que quede exacto.</p>
+          </div>
+          <div>
+            <p class="stp-c-del-label">ENTREGABLES</p>
+            <ul class="stp-c-del">
+              <li>Propuesta visual</li>
+              <li>Wireframes completos</li>
+              <li>Revisión ilimitada</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="stp-content" id="stp-panel-3" role="tabpanel" aria-labelledby="stp-tab-3">
+          <div>
+            <h3 class="stp-c-title">Desarrollo</h3>
+            <p class="stp-c-desc">Construcción con código limpio, rápido y escalable. Integración GEO para visibilidad en IA, optimización técnica de velocidad y accesibilidad. Puedes ver el avance en tiempo real en un enlace de prueba.</p>
+          </div>
+          <div>
+            <p class="stp-c-del-label">ENTREGABLES</p>
+            <ul class="stp-c-del">
+              <li>Sitio en staging</li>
+              <li>GEO integrado</li>
+              <li>Score &gt;90 en PageSpeed</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="stp-content" id="stp-panel-4" role="tabpanel" aria-labelledby="stp-tab-4">
+          <div>
+            <h3 class="stp-c-title">Lanzamiento</h3>
+            <p class="stp-c-desc">Publicación en tu dominio, capacitación básica de uso y 30 días de soporte incluidos. Las garantías de entrega y resultados entran en vigor desde este momento.</p>
+          </div>
+          <div>
+            <p class="stp-c-del-label">ENTREGABLES</p>
+            <ul class="stp-c-del">
+              <li>Sitio en vivo</li>
+              <li>30 días de soporte</li>
+              <li>Garantías activas</li>
+            </ul>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══ BENEFICIOS ════════════════════════════════════════════ -->
-<section id="beneficios" aria-labelledby="ben-h">
+<!-- ══ ECOSISTEMA ════════════════════════════════════════════ -->
+<section id="ecosistema" aria-labelledby="eco-h">
   <div class="wrap">
-    <div class="sh">
-      <p class="badge bl2 rv"><span class="bdot" aria-hidden="true"></span>¿Por qué Orsplet?</p>
-      <h2 id="ben-h" class="st1 rv">Todo lo que ganas al<br>trabajar con nosotros</h2>
+    <div class="sh c">
+      <p class="badge bd rv"><span class="bdot" aria-hidden="true"></span>Empieza por donde lo necesitas</p>
+      <h2 id="eco-h" class="st1 rv">Cada pilar funciona solo.<br><span class="gtxt">Juntos son imbatibles.</span></h2>
+      <p class="st2 dk rv">Puedes entrar por uno solo o llevarte el ecosistema completo, las dos opciones funcionan. Crecemos contigo al ritmo que tú decidas.</p>
     </div>
-    <ul class="ben-g" role="list" aria-label="Beneficios de trabajar con Orsplet">
-      <li class="ben rv">
-        <div class="ben-ico" aria-hidden="true">
-          <svg viewBox="0 0 18 18" fill="none" focusable="false"><path d="M9 2l2 5h5l-4 3.5 1.5 5L9 13l-4.5 2.5 1.5-5L2 7h5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
-        </div>
-        <div class="ben-b">
-          <h3>Diseño web personalizado</h3>
-          <p>Tu sitio competirá visualmente con las mejores marcas digitales, sin importar el tamaño de tu negocio.</p>
-        </div>
-      </li>
-      <li class="ben rv d1">
-        <div class="ben-ico" aria-hidden="true">
-          <svg viewBox="0 0 18 18" fill="none" focusable="false"><circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.2"/><path d="M6 9l2 2 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div class="ben-b">
-          <h3>Confianza instantánea</h3>
-          <p>Un sitio web bien diseñado comunica profesionalismo en segundos. Tus visitas confiarán antes de contactarte.</p>
-        </div>
-      </li>
-      <li class="ben rv d1">
-        <div class="ben-ico" aria-hidden="true">
-          <svg viewBox="0 0 18 18" fill="none" focusable="false"><path d="M3 13l3.5-7 3 4 2-2.5 4 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div class="ben-b">
-          <h3>Crecimiento digital medible</h3>
-          <p>Más visibilidad en Google, mayor conversión y una presencia digital que trabaja por ti las 24 horas.</p>
-        </div>
-      </li>
-      <li class="ben rv d2">
-        <div class="ben-ico" aria-hidden="true">
-          <svg viewBox="0 0 18 18" fill="none" focusable="false"><circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.2"/><path d="M9 6v3l2 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-        </div>
-        <div class="ben-b">
-          <h3>Proceso transparente</h3>
-          <p>Sabrás exactamente en qué etapa estamos. Sin sorpresas, sin rodeos.</p>
-        </div>
-      </li>
-    </ul>
 
-    <div class="stats-r" style="grid-template-columns:repeat(2,1fr);max-width:760px;margin:1.125rem auto 0;" role="list" aria-label="Estadísticas de Orsplet">
-      <div class="stat rv" role="listitem">
-        <div class="stat-n"><span class="cnt" data-t="100">0</span><span class="s">%</span></div>
-        <div class="stat-l">Proyectos personalizados</div>
+    <div class="eco-g rv">
+      <div class="eco-pill">
+        <p class="eco-n">PILAR 01</p>
+        <div class="eco-ico" aria-hidden="true">
+          <svg viewBox="0 0 22 22" fill="none"><rect x="2" y="4" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.4"/><line x1="2" y1="8.5" x2="20" y2="8.5" stroke="currentColor" stroke-width="1.3"/><circle cx="5" cy="6.5" r=".9" fill="currentColor"/><circle cx="8" cy="6.5" r=".9" fill="currentColor"/></svg>
+        </div>
+        <h3 class="eco-h">Sitio Web Premium</h3>
+        <p class="eco-p">No tienes presencia digital o la que tienes no convierte. Diseñamos tu sitio desde cero, a medida de tu negocio.</p>
+        <span class="eco-tag">Ideal si partes de cero</span>
       </div>
-      <div class="stat rv d1" role="listitem">
-        <div class="stat-n">ADN</div>
-        <div class="stat-l">El ADN de tu marca en cada proyecto</div>
+
+      <div class="eco-pill">
+        <p class="eco-n">PILAR 02</p>
+        <div class="eco-ico" aria-hidden="true">
+          <svg viewBox="0 0 22 22" fill="none"><circle cx="11" cy="5" r="2" stroke="currentColor" stroke-width="1.3"/><circle cx="4" cy="16" r="2" stroke="currentColor" stroke-width="1.3"/><circle cx="18" cy="16" r="2" stroke="currentColor" stroke-width="1.3"/><path d="M11 7v4M11 11L4 14M11 11L18 14" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </div>
+        <h3 class="eco-h">GEO: Visibilidad IA</h3>
+        <p class="eco-p">Ya tienes sitio pero no apareces cuando alguien le pregunta a ChatGPT o Gemini. Lo optimizamos para que la IA te recomiende.</p>
+        <span class="eco-tag">Ideal si ya tienes sitio</span>
+      </div>
+
+      <div class="eco-pill">
+        <p class="eco-n">PILAR 03</p>
+        <div class="eco-ico" aria-hidden="true">
+          <svg viewBox="0 0 22 22" fill="none"><rect x="3" y="4" width="11" height="14" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M16 9c1.3 1 2 2.5 2 4s-.7 3-2 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M14 10.5c.7.7 1.2 1.5 1.2 2.5S14.7 14.8 14 15.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </div>
+        <h3 class="eco-h">NFC + QR</h3>
+        <p class="eco-p">Tienes clientes satisfechos pero pocas reseñas en Google. La tarjeta NFC o la placa de mostrador las capturan en el momento exacto, sin fricción.</p>
+        <span class="eco-tag">Ideal si ya operas bien</span>
       </div>
     </div>
+
+    <div class="eco-close rv">
+      <p>Empieza con uno. Suma cuando quieras. <span>Sin paquetes forzados.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PRECIOS ════════════════════════════════════════════════ -->
+<section id="precios" aria-labelledby="precios-h">
+  <div class="wrap">
+    <div class="sh c">
+      <p class="badge bl2 rv"><span class="bdot" aria-hidden="true"></span>Inversión</p>
+      <h2 id="precios-h" class="st1 rv">Sin sorpresas.<br>Precios claros.</h2>
+      <p class="st2 rv">Sin contratos eternos ni cobros ocultos. Elige el plan que se ajusta a tu negocio y arrancamos esta semana.</p>
+    </div>
+
+    <div class="price-g">
+
+      <!-- Básico -->
+      <div class="pc rv">
+        <p class="pc-tier">Básico</p>
+        <div class="pc-price"><sup>$</sup>6,900 <span>MXN</span></div>
+        <p class="pc-since">pago único</p>
+        <p class="pc-desc">Para negocios que necesitan presencia digital rápida, profesional y sin complicaciones.</p>
+        <ul class="pc-feats">
+          <li>Landing page de 1 página</li>
+          <li>Diseño web premium personalizado</li>
+          <li>Optimización móvil completa</li>
+          <li>GEO básico (IA-ready)</li>
+          <li>Entrega en 2 semanas</li>
+        </ul>
+        <a href="#cta" class="btn bgl">Empezar →</a>
+      </div>
+
+      <!-- Profesional -->
+      <div class="pc featured rv d1">
+        <span class="pc-popular">Más popular</span>
+        <p class="pc-tier">Profesional</p>
+        <div class="pc-price"><sup>$</sup>11,900 <span>MXN</span></div>
+        <p class="pc-since">pago único</p>
+        <p class="pc-desc">Sitio completo con múltiples páginas, GEO avanzado y soporte para crecer.</p>
+        <ul class="pc-feats">
+          <li>Sitio completo hasta 5 páginas</li>
+          <li>Diseño web premium + animaciones</li>
+          <li>GEO avanzado (ChatGPT, Gemini, Perplexity)</li>
+          <li>Optimización de velocidad Core Web Vitals</li>
+          <li>Entrega en 3 semanas garantizada</li>
+          <li>30 días de soporte incluido</li>
+        </ul>
+        <a href="#cta" class="btn bg">Comenzar proyecto →</a>
+      </div>
+
+      <!-- Premium -->
+      <div class="pc rv d2">
+        <p class="pc-tier">Premium</p>
+        <div class="pc-price"><sup>$</sup>17,900 <span>MXN</span></div>
+        <p class="pc-since">pago único</p>
+        <p class="pc-desc">Para negocios que quieren el máximo impacto digital con automatizaciones y resultados medibles.</p>
+        <ul class="pc-feats">
+          <li>Sitio completo ilimitado de páginas</li>
+          <li>GEO avanzado (ChatGPT, Gemini, Perplexity)</li>
+          <li>Automatizaciones de contacto y reservas</li>
+          <li>Integración WhatsApp Business</li>
+          <li>Panel de métricas mensual</li>
+          <li>NFC + QR: tarjeta y placa de mostrador incluidas</li>
+          <li>Entrega en 3 semanas garantizada</li>
+          <li>60 días de soporte incluido</li>
+        </ul>
+        <a href="#cta" class="btn bgl">Empezar →</a>
+      </div>
+
+    </div>
+
+    <div class="nfc-addon rv">
+      <div class="nfc-addon-ico" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M12 9v6M9 12h6"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/><path d="M7 9a5 5 0 000 6M17 9a5 5 0 010 6"/></svg>
+      </div>
+      <div class="nfc-addon-txt">
+        <strong>¿Solo quieres NFC?</strong>
+        <span>Tarjeta o placa de mostrador, ambas inteligentes. Pregunta cuál te conviene o cómo funcionan juntas.</span>
+      </div>
+      <a href="#cta" class="btn bg">Preguntar →</a>
+    </div>
+
   </div>
 </section>
 
@@ -1014,20 +1776,31 @@ footer { padding:clamp(2rem,4vw,3rem) 0; background:var(--black); border-top:1px
 <section id="cta" aria-labelledby="cta-h">
   <div class="cta-glow" aria-hidden="true"></div>
   <div class="wrap">
+    <div class="cta-grid">
     <div class="cta-b">
-      <p class="badge bd rv" style="display:inline-flex;margin-bottom:1.4rem"><span class="bdot" aria-hidden="true"></span>Empieza hoy</p>
-      <h2 id="cta-h" class="cta-t rv">Tu negocio merece<br><span class="sand">estar en línea.</span></h2>
-      <p class="cta-s rv">Cuéntanos sobre tu proyecto de diseño web. Te respondemos con un plan claro, honesto y sin compromisos.</p>
+      <p class="badge bd rv" style="display:inline-flex;margin-bottom:1.4rem"><span class="bdot" aria-hidden="true"></span>Lugares limitados este mes</p>
+      <h2 id="cta-h" class="cta-t rv">Solo tomamos<br><span class="sand">3 proyectos al mes.</span></h2>
+      <p class="cta-s rv">Para entregarlos en 3 semanas y con la atención que merecen, no podemos tomar más. Si hay un lugar disponible, es tuyo — pero no por mucho tiempo.</p>
       <div class="cta-acts rv">
         <a href="mailto:hola@orsplet.com" class="btn bg blg" aria-label="Escribirnos un correo para iniciar tu proyecto web">
-          Escribirnos ahora
+          Quiero mi lugar
           <svg class="arr" viewBox="0 0 14 14" fill="none" aria-hidden="true" focusable="false">
             <path d="M2 7h10M7.5 3.5l4 3.5-4 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </a>
         <a href="#servicios" class="btn bgd blg">Ver servicios</a>
       </div>
-      <p class="cta-note rv">Profesionalidad · Procesos claros · Diseño web 100% personalizado</p>
+      <p class="cta-note rv">Sin contratos. Sin letra chica. Si no te convence, no firmas.</p>
+    </div>
+    <div class="cta-img-wrap rv">
+      <img
+        src="imagenesweb/DeviceHand.jpg"
+        alt="Sitio web premium en iPhone — Orsplet"
+        class="cta-img"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
     </div>
   </div>
 </section>
@@ -1050,10 +1823,9 @@ footer { padding:clamp(2rem,4vw,3rem) 0; background:var(--black); border-top:1px
       </a>
       <nav aria-label="Navegación de pie de página">
         <ul class="flinks" role="list">
-          <li><a href="#brand">Nosotros</a></li>
           <li><a href="#servicios">Servicios</a></li>
           <li><a href="#proceso">Proceso</a></li>
-          <li><a href="#filosofia">Filosofía</a></li>
+          <li><a href="#precios">Precios</a></li>
           <li><a href="mailto:hola@orsplet.com" aria-label="Contactar a Orsplet por correo electrónico">Contacto</a></li>
         </ul>
       </nav>
@@ -1158,6 +1930,25 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     if (t) t.scrollIntoView({behavior:'smooth', block:'start'});
   });
 });
+
+/* ── Proceso stepper ─────────────────────────────────────── */
+const stpItems    = Array.from(document.querySelectorAll('.stp-item'));
+const stpContents = Array.from(document.querySelectorAll('.stp-content'));
+function activateStep(idx) {
+  stpItems.forEach((item, i) => {
+    item.classList.remove('s-active', 's-done');
+    const btn = item.querySelector('.stp-trigger');
+    if (btn) btn.setAttribute('aria-selected', 'false');
+    if (i < idx)      item.classList.add('s-done');
+    else if (i === idx) item.classList.add('s-active');
+  });
+  stpContents.forEach((c, i) => c.classList.toggle('s-active', i === idx));
+}
+stpItems.forEach((item, idx) => {
+  const btn = item.querySelector('.stp-trigger');
+  if (btn) btn.addEventListener('click', () => activateStep(idx));
+});
+activateStep(0);
 </script>
 </body>
 </html>
