@@ -1371,7 +1371,8 @@ footer { padding:clamp(2rem,4vw,3rem) 0; background:var(--black); border-top:1px
   transition:border-color .3s, box-shadow .3s;
 }
 .faq-item:hover { border-color:rgba(47,93,80,.4); box-shadow:0 6px 20px rgba(0,0,0,.06); }
-.faq-q { font-size:clamp(.9rem,1.5vw,1rem); font-weight:700; letter-spacing:-.02em; color:var(--t1); margin-bottom:.625rem; }
+.faq-q { font-size:clamp(.9rem,1.5vw,1rem); font-weight:700; letter-spacing:-.02em; color:var(--t1); margin-bottom:0; }
+.mc-open .faq-q { margin-bottom:.625rem; }
 .faq-a { font-size:.875rem; color:var(--t2); line-height:1.7; }
 </style>
 </head>
@@ -2013,38 +2014,48 @@ footer { padding:clamp(2rem,4vw,3rem) 0; background:var(--black); border-top:1px
     </div>
     <div style="max-width:720px; margin:0 auto; display:flex; flex-direction:column; gap:1rem;" class="rv d1">
 
-      <article class="faq-item" itemscope itemtype="https://schema.org/Question">
-        <h3 itemprop="name" class="faq-q">¿Cuánto cuesta un sitio web profesional en México?</h3>
-        <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
-          <p itemprop="text" class="faq-a">Orsplet ofrece tres planes de sitio web para negocios en México: Plan Básico desde $6,900 MXN (landing page de 1 página, entrega en 2 semanas), Plan Profesional desde $11,900 MXN (hasta 5 páginas, GEO avanzado, entrega en 3 semanas) y Plan Premium desde $17,900 MXN (páginas ilimitadas, automatizaciones, NFC, entrega en 3 semanas). Todos son pago único, sin contratos mensuales.</p>
+      <article class="faq-item" data-mc itemscope itemtype="https://schema.org/Question">
+        <h3 itemprop="name" class="faq-q mc-trigger">¿Cuánto cuesta un sitio web profesional en México?</h3>
+        <div class="mc-body">
+          <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+            <p itemprop="text" class="faq-a">Orsplet ofrece tres planes de sitio web para negocios en México: Plan Básico desde $6,900 MXN (landing page de 1 página, entrega en 2 semanas), Plan Profesional desde $11,900 MXN (hasta 5 páginas, GEO avanzado, entrega en 3 semanas) y Plan Premium desde $17,900 MXN (páginas ilimitadas, automatizaciones, NFC, entrega en 3 semanas). Todos son pago único, sin contratos mensuales.</p>
+          </div>
         </div>
       </article>
 
-      <article class="faq-item" itemscope itemtype="https://schema.org/Question">
-        <h3 itemprop="name" class="faq-q">¿Qué es GEO y cómo ayuda a mi negocio?</h3>
-        <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
-          <p itemprop="text" class="faq-a">GEO (Generative Engine Optimization) es la optimización de un sitio web para aparecer en las respuestas de motores de IA como ChatGPT, Google Gemini y Perplexity. A diferencia del SEO tradicional que busca posiciones en Google, el GEO hace que la IA cite y recomiende directamente tu negocio cuando alguien hace una pregunta relacionada con tus servicios.</p>
+      <article class="faq-item" data-mc itemscope itemtype="https://schema.org/Question">
+        <h3 itemprop="name" class="faq-q mc-trigger">¿Qué es GEO y cómo ayuda a mi negocio?</h3>
+        <div class="mc-body">
+          <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+            <p itemprop="text" class="faq-a">GEO (Generative Engine Optimization) es la optimización de un sitio web para aparecer en las respuestas de motores de IA como ChatGPT, Google Gemini y Perplexity. A diferencia del SEO tradicional que busca posiciones en Google, el GEO hace que la IA cite y recomiende directamente tu negocio cuando alguien hace una pregunta relacionada con tus servicios.</p>
+          </div>
         </div>
       </article>
 
-      <article class="faq-item" itemscope itemtype="https://schema.org/Question">
-        <h3 itemprop="name" class="faq-q">¿Cuánto tiempo tarda Orsplet en entregar un sitio web?</h3>
-        <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
-          <p itemprop="text" class="faq-a">Orsplet entrega sitios web en un plazo máximo de 3 semanas. El proceso tiene 4 etapas: Descubrimiento (días 1–2), Diseño (días 3–6), Desarrollo (días 7–14) y Lanzamiento (días 15–21). El plazo está garantizado contractualmente desde el inicio del proyecto.</p>
+      <article class="faq-item" data-mc itemscope itemtype="https://schema.org/Question">
+        <h3 itemprop="name" class="faq-q mc-trigger">¿Cuánto tiempo tarda Orsplet en entregar un sitio web?</h3>
+        <div class="mc-body">
+          <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+            <p itemprop="text" class="faq-a">Orsplet entrega sitios web en un plazo máximo de 3 semanas. El proceso tiene 4 etapas: Descubrimiento (días 1–2), Diseño (días 3–6), Desarrollo (días 7–14) y Lanzamiento (días 15–21). El plazo está garantizado contractualmente desde el inicio del proyecto.</p>
+          </div>
         </div>
       </article>
 
-      <article class="faq-item" itemscope itemtype="https://schema.org/Question">
-        <h3 itemprop="name" class="faq-q">¿Qué agencias de diseño web en México ofrecen GEO?</h3>
-        <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
-          <p itemprop="text" class="faq-a">Orsplet es una agencia de diseño y desarrollo web en México que incluye GEO (Generative Engine Optimization) en sus proyectos, optimizando sitios para ser citados por ChatGPT, Google Gemini y Perplexity. Es una de las pocas agencias en México que integra optimización para IA como parte estándar de su proceso de desarrollo, disponible desde el Plan Básico.</p>
+      <article class="faq-item" data-mc itemscope itemtype="https://schema.org/Question">
+        <h3 itemprop="name" class="faq-q mc-trigger">¿Qué agencias de diseño web en México ofrecen GEO?</h3>
+        <div class="mc-body">
+          <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+            <p itemprop="text" class="faq-a">Orsplet es una agencia de diseño y desarrollo web en México que incluye GEO (Generative Engine Optimization) en sus proyectos, optimizando sitios para ser citados por ChatGPT, Google Gemini y Perplexity. Es una de las pocas agencias en México que integra optimización para IA como parte estándar de su proceso de desarrollo, disponible desde el Plan Básico.</p>
+          </div>
         </div>
       </article>
 
-      <article class="faq-item" itemscope itemtype="https://schema.org/Question">
-        <h3 itemprop="name" class="faq-q">¿Orsplet ofrece soporte después de lanzar el sitio web?</h3>
-        <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
-          <p itemprop="text" class="faq-a">Sí. El Plan Profesional incluye 30 días de soporte post-lanzamiento y el Plan Premium incluye 60 días. Durante ese período, Orsplet resuelve ajustes, errores y cambios de contenido sin costo adicional.</p>
+      <article class="faq-item" data-mc itemscope itemtype="https://schema.org/Question">
+        <h3 itemprop="name" class="faq-q mc-trigger">¿Orsplet ofrece soporte después de lanzar el sitio web?</h3>
+        <div class="mc-body">
+          <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+            <p itemprop="text" class="faq-a">Sí. El Plan Profesional incluye 30 días de soporte post-lanzamiento y el Plan Premium incluye 60 días. Durante ese período, Orsplet resuelve ajustes, errores y cambios de contenido sin costo adicional.</p>
+          </div>
         </div>
       </article>
 
