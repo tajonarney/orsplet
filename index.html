@@ -355,7 +355,7 @@ section { padding:clamp(4rem,8vw,7rem) 0; }
 .hb,.ht,.hs,.hc,.htr { opacity:0; transform:translateY(18px); }
 
 .h-title {
-  font-size:clamp(2.5rem,8vw,6.5rem);
+  font-size:clamp(2.5rem,9.5vw,7.5rem);
   font-weight:800; letter-spacing:-.05em; line-height:1.05;
   margin-bottom:clamp(.875rem,2.5vw,1.5rem);
   color:var(--tw1);
@@ -664,8 +664,10 @@ footer { padding:clamp(2rem,4vw,3rem) 0; background:var(--black); border-top:1px
    RESPONSIVE — max 480px (standard phones)
 ════════════════════════════════════════════════════════ */
 @media(max-width:480px){
-  .h-ctas,.cta-acts { flex-direction:column; align-items:stretch; }
+  .cta-acts { flex-direction:column; align-items:stretch; }
   .btn,.blg { text-align:center; justify-content:center; width:100%; }
+  .h-ctas { flex-direction:row; align-items:center; flex-wrap:wrap; gap:.625rem; }
+  .h-ctas .btn { width:auto; padding:9px 16px; font-size:.8rem; }
   .stats-r { grid-template-columns:1fr !important; }
   .badge { font-size:.625rem; padding:3px 10px; }
   .ec { flex-direction:column; gap:.625rem; }
