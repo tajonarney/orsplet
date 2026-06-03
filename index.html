@@ -1049,6 +1049,12 @@ footer { padding:clamp(2rem,4vw,3rem) 0; background:var(--black); border-top:1px
 
 /* — NFC Service Card Visual ─────────────────────── */
 .nfc-vis { display:flex; align-items:center; justify-content:center; gap:3rem; }
+.nfc-vis img { max-height:inherit; }
+@media(max-width:640px){
+  .nfc-vis { gap:1.25rem; }
+  .nfc-vis img:first-child { max-height:100px !important; }
+  .nfc-vis img:last-child  { max-height:150px !important; }
+}
 .nfc-c {
   width:min(150px,90%); aspect-ratio:1.586;
   border-radius:14px;
